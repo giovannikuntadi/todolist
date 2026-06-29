@@ -1,9 +1,17 @@
 import iconEmptyTask from '@/assets/images/icon-empty-task.svg';
 import { TaskItem } from './TaskItem';
 
-export function TaskList({ tasks, onCheckboxToggleCompletion }) {
+export function TaskList({ tasks, onCheckboxToggleCompletion, onClickEditTask, onClickDeleteTask }) {
   function handleCheckboxToggleCompletion(isCheckboxChecked, item) {
     onCheckboxToggleCompletion(isCheckboxChecked, item);
+  }
+
+  function handleClickEdit(selectedTask) {
+    onClickEditTask(selectedTask);
+  }
+
+  function handleClickDelete(selectedTask) {
+    onClickDeleteTask(selectedTask);
   }
 
   return (
@@ -24,7 +32,12 @@ export function TaskList({ tasks, onCheckboxToggleCompletion }) {
       ) : (
         <>
           <ul className="flex flex-col gap-2.5">
-            <TaskItem tasks={tasks} onCheckboxToggleCompletion={handleCheckboxToggleCompletion} />
+            <TaskItem
+              tasks={tasks}
+              onCheckboxToggleCompletion={handleCheckboxToggleCompletion}
+              onClickEdit={handleClickEdit}
+              onClickDelete={handleClickDelete}
+            />
           </ul>
         </>
       )}

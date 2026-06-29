@@ -70,6 +70,14 @@ export function TodoPage() {
     );
   }
 
+  function handleClickEditTask(selectedTask) {
+    console.log(selectedTask);
+  }
+
+  function handleClickDeleteTask(selectedTask) {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== selectedTask.id));
+  }
+
   return (
     <main className="mx-auto mt-9 flex h-165 w-150 flex-col rounded-3xl border-2 border-white bg-[#f9f9f9]">
       <h1 className="p-4.5 text-2xl font-semibold text-black">Todolist</h1>
@@ -81,6 +89,8 @@ export function TodoPage() {
         segments={availableStatuses}
         onSelectSegment={handleSelectSegment}
         onCheckboxToggleCompletion={handleCheckboxToggleCompletion}
+        onClickEditTask={handleClickEditTask}
+        onClickDeleteTask={handleClickDeleteTask}
       />
     </main>
   );
