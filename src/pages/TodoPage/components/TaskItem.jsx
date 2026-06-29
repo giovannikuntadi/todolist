@@ -1,6 +1,7 @@
 import { Checkbox } from '@/components/Checkbox';
 import iconPenSquare from '@/assets/images/icon-pen-square.svg';
 import iconTrash from '@/assets/images/icon-trash.svg';
+import React from 'react';
 
 export function TaskItem({ tasks, onCheckboxToggleCompletion }) {
   function handleToggleCompletion(isCheckboxChecked, item) {

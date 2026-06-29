@@ -1,13 +1,36 @@
-function Segment() {
-  return <button></button>;
+import React, { useState } from 'react';
+
+function Segment({ label, isSelected, index, onSelectSegment }) {
+  function handleClick() {
+    onSelectSegment(index);
+  }
+
+  return (
+    <button
+      className={`flex-1 cursor-pointer rounded-[6px] px-3.5 py-1.25 ${isSelected ? 'bg-white text-neutral-900' : 'text-[#a4a4a4]'}`}
+      onClick={handleClick}
+    >
+      {label}
+    </button>
+  );
 }
 
-export function SegmentedControl() {
+export function SegmentedControl({ segments, selectedSegmentIndex, onSelectSegment }) {
+  function handleSelectSegment(index) {
+    onSelectSegment(index);
+  }
+
   return (
     <div className="flex w-60 rounded-md bg-neutral-50 p-0.5">
-      <button className="flex-1 cursor-pointer rounded-[6px] bg-white px-3.5 py-1.25 text-neutral-900">All</button>
-      <button className="flex-1 cursor-pointer rounded-[6px] px-3.5 py-1.25 text-[#a4a4a4]">Active</button>
-      <button className="flex-1 cursor-pointer rounded-[6px] px-3.5 py-1.25 text-[#a4a4a4]">Completed</button>
+      {segments.map((segment, index) => (
+        <Segment
+          key={index}
+          label={segment}
+          index={index}
+          isSelected={index === selectedSegmentIndex ? true : false}
+          onSelectSegment={handleSelectSegment}
+        />
+      ))}
     </div>
   );
 }

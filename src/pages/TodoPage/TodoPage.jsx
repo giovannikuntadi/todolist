@@ -13,11 +13,41 @@ export function TodoPage() {
   // const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
-  const Stats = Object.freeze({
-    ALL: tasks.length,
-    ONGOING: tasks.filter((task) => !task.isCompleted).length,
-    COMPLETED: tasks.filter((task) => task.isCompleted).length,
+  const [selectedSegmentIndex, setSelectedSegmentIndex] = useState(0);
+
+  const Tasks = Object.freeze({
+    ALL: tasks,
+    ONGOING: tasks.filter((task) => !task.isCompleted),
+    COMPLETED: tasks.filter((task) => task.isCompleted),
   });
+
+  const Stats = Object.freeze({
+    ALL: Tasks.ALL.length,
+    ONGOING: Tasks.ONGOING.length,
+    COMPLETED: Tasks.COMPLETED.length,
+  });
+
+  const Statuses = {
+    ALL: 'All',
+    ACTIVE: 'Active',
+    COMPLETED: 'Completed',
+  };
+
+  const availableStatuses = [Statuses.ALL, Statuses.ACTIVE, Statuses.COMPLETED];
+
+  function getVisibleTasks(index) {
+    switch (index) {
+      case 0:
+        return Tasks.ALL;
+        break;
+      case 1:
+        return Tasks.ONGOING;
+        break;
+      case 2:
+        return Tasks.COMPLETED;
+        break;
+    }
+  }
 
   function handleClickAddButton(inputValue) {
     setInputValue(inputValue);
@@ -26,6 +56,12 @@ export function TodoPage() {
       const newTask = { name: inputValue, isCompleted: false };
       return [...prevTask, newTask];
     });
+  }
+
+  function handleSelectSegment(index) {
+    if (selectedSegmentIndex !== index) {
+      setSelectedSegmentIndex(index);
+    }
   }
 
   function handleCheckboxToggleCompletion(isCheckboxChecked, item) {
@@ -39,7 +75,13 @@ export function TodoPage() {
       <h1 className="p-4.5 text-2xl font-semibold text-black">Todolist</h1>
       <TodoStats total={Stats.ALL} ongoing={Stats.ONGOING} completed={Stats.COMPLETED} />
       <TodoInput onClickAddButton={handleClickAddButton} />
-      <TodoMain tasks={tasks} onCheckboxToggleCompletion={handleCheckboxToggleCompletion} />
+      <TodoMain
+        tasks={getVisibleTasks(selectedSegmentIndex)}
+        selectedSegmentIndex={selectedSegmentIndex}
+        segments={availableStatuses}
+        onSelectSegment={handleSelectSegment}
+        onCheckboxToggleCompletion={handleCheckboxToggleCompletion}
+      />
     </main>
   );
 }
