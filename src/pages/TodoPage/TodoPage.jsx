@@ -5,12 +5,12 @@ import { useCallback, useState } from 'react';
 import { Task } from '@/data/models/Task';
 
 export function TodoPage() {
-  const [tasks, setTasks] = useState([
-    new Task('Implementasi halaman Register', false),
-    new Task('Build halaman Dashboard', false),
-    new Task('Komponen To-Do List (Add, Edit, Delete Task)', true),
-  ]);
-  // const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([
+  //   new Task('Implementasi halaman Register', false),
+  //   new Task('Build halaman Dashboard', false),
+  //   new Task('Komponen To-Do List (Add, Edit, Delete Task)', true),
+  // ]);
+  const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
   const [selectedSegmentIndex, setSelectedSegmentIndex] = useState(0);
