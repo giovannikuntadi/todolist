@@ -8,10 +8,10 @@ export function TodoMain({
   selectedSegmentIndex,
   onSelectSegment,
   onCheckboxToggleCompletion,
-  onClickEditTask,
+  onSuccessChangeTask,
   onClickDeleteTask,
 }) {
-  const handleSelectSegment = useCallback((index) => {
+  const handleSelectSegment = useCallback(index => {
     onSelectSegment(index);
   });
 
@@ -19,11 +19,11 @@ export function TodoMain({
     onCheckboxToggleCompletion(isCheckboxChecked, item);
   });
 
-  const handleClickEditTask = useCallback((selectedTask) => {
-    onClickEditTask(selectedTask);
+  const handleSuccessChangeTask = useCallback((inputValue, editingTaskId) => {
+    onSuccessChangeTask(inputValue, editingTaskId);
   });
 
-  const handleClickDeleteTask = useCallback((selectedTask) => {
+  const handleClickDeleteTask = useCallback(selectedTask => {
     onClickDeleteTask(selectedTask);
   });
 
@@ -42,7 +42,7 @@ export function TodoMain({
         <TaskList
           tasks={tasks}
           onCheckboxToggleCompletion={handleCheckboxToggleCompletion}
-          onClickEditTask={handleClickEditTask}
+          onSuccessChangeTask={handleSuccessChangeTask}
           onClickDeleteTask={handleClickDeleteTask}
         />
       </div>

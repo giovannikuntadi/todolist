@@ -2,16 +2,16 @@ import iconEmptyTask from '@/assets/images/icon-empty-task.svg';
 import { TaskItem } from './TaskItem';
 import { useCallback } from 'react';
 
-export function TaskList({ tasks, onCheckboxToggleCompletion, onClickEditTask, onClickDeleteTask }) {
+export function TaskList({ tasks, onCheckboxToggleCompletion, onSuccessChangeTask, onClickDeleteTask }) {
   const handleCheckboxToggleCompletion = useCallback((isCheckboxChecked, item) => {
     onCheckboxToggleCompletion(isCheckboxChecked, item);
   });
 
-  const handleClickEdit = useCallback((selectedTask) => {
-    onClickEditTask(selectedTask);
+  const handleSuccessChangeTask = useCallback((inputValue, editingTaskId) => {
+    onSuccessChangeTask(inputValue, editingTaskId);
   });
 
-  const handleClickDelete = useCallback((selectedTask) => {
+  const handleClickDelete = useCallback(selectedTask => {
     onClickDeleteTask(selectedTask);
   });
 
@@ -36,7 +36,7 @@ export function TaskList({ tasks, onCheckboxToggleCompletion, onClickEditTask, o
             <TaskItem
               tasks={tasks}
               onCheckboxToggleCompletion={handleCheckboxToggleCompletion}
-              onClickEdit={handleClickEdit}
+              onSuccessChangeTask={handleSuccessChangeTask}
               onClickDelete={handleClickDelete}
             />
           </ul>

@@ -17,8 +17,8 @@ export function TodoPage() {
 
   const Tasks = Object.freeze({
     ALL: tasks,
-    ONGOING: tasks.filter((task) => !task.isCompleted),
-    COMPLETED: tasks.filter((task) => task.isCompleted),
+    ONGOING: tasks.filter(task => !task.isCompleted),
+    COMPLETED: tasks.filter(task => task.isCompleted),
   });
 
   const Stats = Object.freeze({
@@ -35,7 +35,7 @@ export function TodoPage() {
 
   const availableStatuses = [Statuses.ALL, Statuses.ACTIVE, Statuses.COMPLETED];
 
-  const getVisibleTasks = useCallback((index) => {
+  const getVisibleTasks = useCallback(index => {
     switch (index) {
       case 0:
         return Tasks.ALL;
@@ -49,33 +49,33 @@ export function TodoPage() {
     }
   });
 
-  const handleClickAddButton = useCallback((inputValue) => {
+  const handleClickAddButton = useCallback(inputValue => {
     setInputValue(inputValue);
 
-    setTasks((prevTask) => {
+    setTasks(prevTask => {
       const newTask = new Task(inputValue, false);
       return [...prevTask, newTask];
     });
   });
 
-  const handleSelectSegment = useCallback((index) => {
+  const handleSelectSegment = useCallback(index => {
     if (selectedSegmentIndex !== index) {
       setSelectedSegmentIndex(index);
     }
   });
 
   const handleCheckboxToggleCompletion = useCallback((isCheckboxChecked, item) => {
-    setTasks((prevTask) =>
-      prevTask.map((task) => (task.id === item.id ? { ...task, isCompleted: isCheckboxChecked } : task)),
+    setTasks(prevTask =>
+      prevTask.map(task => (task.id === item.id ? { ...task, isCompleted: isCheckboxChecked } : task)),
     );
   });
 
-  const handleClickEditTask = useCallback((selectedTask) => {
-    console.log(selectedTask);
+  const handleSuccessChangeTask = useCallback((inputValue, editingTaskId) => {
+    setTasks(prevTasks => prevTasks.map(task => (task.id === editingTaskId ? { ...task, name: inputValue } : task)));
   });
 
-  const handleClickDeleteTask = useCallback((selectedTask) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== selectedTask.id));
+  const handleClickDeleteTask = useCallback(selectedTask => {
+    setTasks(prevTasks => prevTasks.filter(task => task.id !== selectedTask.id));
   });
 
   return (
@@ -89,7 +89,7 @@ export function TodoPage() {
         segments={availableStatuses}
         onSelectSegment={handleSelectSegment}
         onCheckboxToggleCompletion={handleCheckboxToggleCompletion}
-        onClickEditTask={handleClickEditTask}
+        onSuccessChangeTask={handleSuccessChangeTask}
         onClickDeleteTask={handleClickDeleteTask}
       />
     </main>
